@@ -277,13 +277,13 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);paddin
 /* ===== Shared Philly-wide tallies =====
    Paste your Supabase Project URL and anon public key below (see SETUP.md).
    Left blank, the site still works; it just hides the Philly-wide totals. */
-var SUPABASE_URL = "";
-var SUPABASE_ANON_KEY = "";
+var SUPABASE_URL = "https://yfopmhghsepvmvbrmlsv.supabase.co";
+var SUPABASE_ANON_KEY = "sb_publishable_5vwi06w5wlf_aoc22T6z2g_iGSMqNso";
 
 (function(){
   var caps={tacos:100,suffer:200,toi:3000,cards:5};
   var totals={}, pending={}, live=!!(SUPABASE_URL&&SUPABASE_ANON_KEY), base=SUPABASE_URL.replace(/\/+$/,'');
-  function hdr(){return {'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json'}}
+  function hdr(){var h={'apikey':SUPABASE_ANON_KEY,'Content-Type':'application/json'};if(SUPABASE_ANON_KEY.indexOf('eyJ')===0)h['Authorization']='Bearer '+SUPABASE_ANON_KEY;return h}
   function fmtTime(s){s=Math.floor(s);if(s>=3600){return Math.floor(s/3600).toLocaleString()+'h '+Math.floor(s%3600/60)+'m'}var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r}
   function paint(){
     document.querySelectorAll('[data-total]').forEach(function(el){
