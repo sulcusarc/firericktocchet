@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="canonical" href="https://firericktocchet.com/">
+<meta property="og:url" content="https://firericktocchet.com/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://firericktocchet.com/exhibit-a.jpg">
+<meta property="og:title" content="Fire the Taco">
+<meta property="og:description" content="#TacoMustGo #FreeMichkov — throw a taco, log your suffering, sign the petition.">
+</head>
+<body>
+<title>Fire the Taco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;800&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: arena scoreboard turned protest rally — one column of "periods", each an interactive bit, with a red RECALL stamp as the single loud gesture. Single deliberate dark look. */
+:root{
+  --bg:#141110; --panel:#1f1a17; --line:#3a302a;
+  --fg:#f6efe6; --muted:#b9ab9c;
+  --orange:#ff6a13; --orange-deep:#d9500a; --ice:#dff1f7; --red:#ff3b3f; --red-deep:#c4161b;
+  --display:"Bowlby One","Arial Black",Impact,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --label:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;margin:0;overflow-x:hidden}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;line-height:1.02}
+.eyebrow{font-family:var(--label);font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--orange)}
+p{margin:0}
+.muted{color:var(--muted)}
+
+/* Hero */
+.hero{position:relative;padding-block:24px 8px;display:flex;flex-direction:column;gap:14px}
+.ticker{font-family:var(--label);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:#fff;background:var(--red-deep);overflow:hidden;white-space:nowrap;border-radius:3px}
+.ticker span{display:inline-block;padding:6px 0;animation:tick 30s linear infinite}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.title-block{position:relative}
+.hero h1{font-size:clamp(58px,17vw,120px);letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--orange);display:block}
+.stamp{position:absolute;right:0;top:8px;transform:rotate(-12deg);border:4px solid var(--red);color:var(--red);font-family:var(--display);font-size:clamp(18px,5vw,30px);padding:4px 12px;border-radius:6px;letter-spacing:.04em;background:rgba(20,17,16,.55);animation:slam .5s cubic-bezier(.2,1.6,.4,1) .3s both}
+@keyframes slam{from{transform:rotate(-12deg) scale(2.4);opacity:0}to{transform:rotate(-12deg) scale(1);opacity:1}}
+.hero .lede{font-size:18px;max-width:36ch}
+.tag{font-family:var(--label);font-weight:800;font-size:20px;letter-spacing:.04em;color:var(--ice)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.stat{background:var(--panel);padding:12px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat b{font-family:var(--display);font-weight:400;font-size:26px;color:var(--ice);font-variant-numeric:tabular-nums}
+.stat small{font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--muted);line-height:1.2}
+
+/* Periods */
+.period{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px 18px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.period h2{font-size:clamp(28px,7.5vw,40px)}
+.btn{font-family:var(--label);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:17px;border:0;border-radius:6px;padding:14px 18px;cursor:pointer;background:var(--orange);color:#1a0d04;transition:transform .08s ease,background .15s}
+.btn:hover{background:var(--orange-deep)}
+.btn:active{transform:scale(.97)}
+.btn.red{background:var(--red);color:#fff}
+.btn.red:hover{background:var(--red-deep)}
+.btn.ghost{background:transparent;color:var(--fg);border:2px solid var(--line)}
+.btn.ghost:hover{border-color:var(--orange)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,.chip:focus-visible,.offense:focus-visible{outline:3px solid var(--ice);outline-offset:2px}
+
+/* Taco toss */
+.cannon-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.counter{font-family:var(--display);font-size:56px;line-height:1;color:var(--orange);font-variant-numeric:tabular-nums}
+.counter-lbl{font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:13px;color:var(--muted)}
+.callout{min-height:1.5em;font-weight:600;color:var(--ice)}
+#rain{position:fixed;inset:0;pointer-events:none;z-index:50}
+.taco{position:absolute;top:-60px;font-size:40px;will-change:transform;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(var(--spin))}}
+
+/* Suffering box */
+.offenses{display:flex;flex-direction:column;gap:8px}
+.offense{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;cursor:pointer;text-align:left;color:var(--fg);font:inherit;font-size:15px;width:100%}
+.offense:hover{border-color:var(--orange)}
+.offense span:first-child{min-width:0}
+.pim{font-family:var(--label);font-weight:800;font-size:14px;letter-spacing:.06em;color:var(--orange);white-space:nowrap}
+.meter{height:14px;background:var(--bg);border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:repeating-linear-gradient(-45deg,var(--red) 0 10px,var(--red-deep) 10px 20px);transition:width .4s ease}
+.box-readout{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:14px;color:var(--muted)}
+.box-readout b{color:var(--fg);font-variant-numeric:tabular-nums}
+
+/* Replacement builder */
+.group{display:flex;flex-direction:column;gap:8px}
+.group-lbl{font-family:var(--label);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:14px;font-weight:600;background:var(--bg);color:var(--fg);border:1.5px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#1a0d04}
+.order{background:var(--ice);color:#14181a;border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.order .eyebrow{color:#8a3a08}
+.order h3{font-size:26px;line-height:1.05}
+
+/* Petition */
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-family:var(--label);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--muted)}
+input[type=text],select{font:inherit;font-size:17px;background:var(--bg);color:var(--fg);border:1.5px solid var(--line);border-radius:6px;padding:12px;width:100%}
+.card{border:3px solid var(--red);border-radius:10px;padding:20px;background:
+  radial-gradient(120% 80% at 100% 0%,rgba(255,59,63,.18),transparent 60%),var(--bg);display:flex;flex-direction:column;gap:10px;position:relative}
+.card .num{position:absolute;right:12px;top:4px;font-family:var(--display);font-size:56px;color:var(--red);opacity:.22;line-height:1}
+.card h3{font-size:28px;line-height:1.05;word-break:break-word;padding-right:48px}
+.card p{font-size:15px}
+.sig{font-family:var(--label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:12px;color:var(--muted)}
+.signed{font-family:var(--label);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:14px;color:var(--red)}
+
+/* Free Michkov */
+.clock{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.clock div{background:var(--bg);padding:14px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.clock b{font-family:var(--display);font-weight:400;font-size:clamp(30px,9vw,44px);line-height:1;font-variant-numeric:tabular-nums}
+.clock .on b{color:var(--ice)}
+.clock .off b{color:var(--red)}
+.clock small{font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--muted)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap}
+.cta{display:flex;flex-direction:column;gap:8px;background:var(--red-deep);border-radius:8px;padding:16px}
+.cta p{color:#fff;font-weight:600}
+.cta a.btn{display:block;text-align:center;text-decoration:none;background:#fff;color:var(--red-deep)}
+.cta a.btn:hover{background:var(--ice)}
+.cta .soon{font-family:var(--label);font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#fff;opacity:.85}
+
+.global{font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:14px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.global b{color:var(--orange);font-variant-numeric:tabular-nums}
+html:not(.live) .global{display:none}
+html:not(.live) .stat:has([data-total]){display:none}
+.stats{grid-template-columns:repeat(2,1fr)}
+@media (min-width:640px){html.live .stats{grid-template-columns:repeat(4,1fr)}}
+.exhibit{margin:4px 0 0;display:flex;flex-direction:column;gap:8px}
+.exhibit img{display:block;width:100%;height:auto;border-radius:8px;border:3px solid var(--orange)}
+.exhibit figcaption{font-size:14px;color:var(--muted)}
+.exhibit figcaption b{font-family:var(--label);font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--orange)}
+.stat-note{font-size:13px;color:var(--muted);line-height:1.45}
+
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--red);color:#fff;text-decoration:none;font-family:var(--label);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:15px;padding:12px 16px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.topbar:hover{background:var(--red-deep)}
+.topbar:focus-visible{outline:3px solid var(--ice);outline-offset:2px}
+.topbar span:last-child{white-space:nowrap}
+
+/* Chel 84-0 ad: borrows that site's own look */
+.chel-ad{background:#0A111A;color:#F3EFE4;border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.chel-ad .ct{display:flex;height:40px;background:#0A0D14;border-top:3px solid #F8C507;border-bottom:3px solid #F8C507;overflow:hidden}
+.chel-ad .ct-tag{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:0 14px;background:#C8102E;color:#fff;font:13px/1 "Archivo Black","Arial Black",sans-serif;letter-spacing:2px}
+.chel-ad .ct-dot{width:8px;height:8px;border-radius:50%;background:#fff;animation:chelblink 1.4s ease-in-out infinite}
+.chel-ad .ct-win{flex:1 1 auto;overflow:hidden;display:flex;align-items:center;min-width:0}
+.chel-ad .ct-track{display:flex;white-space:nowrap;animation:tick 28s linear infinite}
+.chel-ad .ct-item{display:inline-flex;align-items:center;gap:8px;padding:0 20px;border-right:1px solid #475066;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+.chel-ad .ct-item .l{color:#9AA3B5;font-size:11px;letter-spacing:2px}
+.chel-ad .ct-item .v{color:#F3EFE4;font-size:13px;font-weight:600;letter-spacing:1px}
+.chel-ad .ct-item .v.gold{color:#F8C507}
+.chel-ad .ct-item .v.hot{color:#C8102E}
+.chel-ad .cb{padding:22px 18px 22px;display:flex;flex-direction:column;gap:14px}
+.chel-ad .ce{display:flex;align-items:center;gap:10px;margin:0;font:11px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:1.8px;color:#9AA3B5}
+.chel-ad .ce .chip{width:48px;height:16px;background:#F8C507;flex:0 0 auto}
+.chel-ad h2{font:clamp(34px,9vw,52px)/.9 "Archivo Black","Arial Black",sans-serif;color:#fff;margin:0;text-wrap:balance}
+.chel-ad h2 .r{color:#C8102E}
+.chel-ad p.cl{margin:0;font:15px/1.55 "Helvetica Neue",Helvetica,Arial,sans-serif;color:#C9CDD6;max-width:46ch}
+.chel-ad .cbtns{display:flex;gap:12px;flex-wrap:wrap}
+.chel-ad .cbtn{display:inline-flex;align-items:center;justify-content:center;min-width:160px;height:50px;padding:0 18px;font:700 13px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.8px;text-decoration:none;background:#1F4FA3;color:#fff;border:0}
+.chel-ad .cbtn:hover{filter:brightness(.88)}
+.chel-ad .cbtn:focus-visible{outline:3px solid #F8C507;outline-offset:3px}
+.chel-ad .cfine{margin:0;font:10px/1.6 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.8px;color:#737373}
+@keyframes chelblink{0%,100%{opacity:1}50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.chel-ad .ct-track,.chel-ad .ct-dot{animation:none}}
+
+footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:6px}
+
+@media (max-width:420px){.stamp{position:static;display:inline-block;margin-top:8px}}
+@media (prefers-reduced-motion:reduce){.ticker span{animation:none}.taco{display:none}.meter i{transition:none}.stamp{animation:none}}
+</style>
+
+<div id="rain" aria-hidden="true"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="ticker" aria-hidden="true"><span>&nbsp;Taco Tuesday has been cancelled &bull; The shell has cracked &bull; Please check your Taco for an expiration date &bull; Thank you for your service, now please exit through the Zamboni tunnel &bull; Fan patience: 0 PIM remaining &bull;&nbsp;Taco Tuesday has been cancelled &bull; The shell has cracked &bull; Please check your Taco for an expiration date &bull; Thank you for your service, now please exit through the Zamboni tunnel &bull; Fan patience: 0 PIM remaining &bull;</span></div>
+    <span class="eyebrow">An unofficial fan movement &middot; Philadelphia, PA</span>
+    <div class="title-block">
+      <h1>Fire the <em>Taco</em></h1>
+      <span class="stamp" aria-hidden="true">RECALLED</span>
+    </div>
+    <p class="lede">Hall of Famer. Franchise penalty minute king. Legend in orange. And yet, here we are. Philadelphia has tasted the Taco and would like to send it back to the kitchen.</p>
+    <figure class="exhibit">
+      <img src="exhibit-a.jpg" width="1200" height="780" alt="The Flyers coach behind the bench wearing Minion goggles, with the scoreboard reading Pittsburgh 4, Philadelphia 0 and shots on goal 15 to 8 in the second period">
+      <figcaption><b>Exhibit A.</b> Down 4&ndash;0 to Pittsburgh with 8 shots halfway through the game. He is still looking for the ninth.</figcaption>
+    </figure>
+    <span class="tag">#TacoMustGo &nbsp;#FreeMichkov</span>
+    <a class="btn red" href="https://c.org/VWFtNbJpSR" target="_blank" rel="noopener" style="text-align:center;text-decoration:none;align-self:flex-start">Sign the petition</a>
+    <div class="stats">
+      <div class="stat"><b>1,815</b><small>His Flyers PIM record</small></div>
+      <div class="stat"><b>&minus;1.7</b><small>Shots a game vs. league avg</small></div>
+      <div class="stat"><b data-total="tacos">0</b><small>Tacos thrown by Philly</small></div>
+      <div class="stat"><b>32nd</b><small>Power play last season (15.7%)</small></div>
+    </div>
+    <p class="stat-note">In his 8 full seasons as a head coach (2009&ndash;10 to 2025&ndash;26), his teams averaged 28.5 shots a game against a 30.2 league average, and finished below average in 7 of 8. Last season&rsquo;s Flyers: 25.5 shots a game (28th of 32) and a 15.7% power play, dead last in the league (average: 21.1%). Source: NHL.com team stats.</p>
+  </header>
+
+  <!-- 1st period -->
+  <section class="period" aria-labelledby="p1">
+    <span class="eyebrow">1st Period</span>
+    <h2 id="p1">Throw a Taco at the Bench</h2>
+    <p class="muted">Each tap is one taco of discontent hurled toward the coaching staff. Digitally. Real tacos on the ice will get you escorted out by a very large man named Dennis.</p>
+    <div class="cannon-row">
+      <button class="btn red" id="fire" type="button">🌮 Throw</button>
+      <div>
+        <div class="counter" id="count">0</div>
+        <div class="counter-lbl">tacos of discontent</div>
+      </div>
+    </div>
+    <p class="global">All of Philly: <b data-total="tacos">0</b> tacos and counting</p>
+    <p class="callout" id="callout" aria-live="polite">Wind up. Philly is watching.</p>
+  </section>
+
+  <!-- 2nd period: Free Michkov -->
+  <section class="period" aria-labelledby="pm">
+    <span class="eyebrow">2nd Period</span>
+    <h2 id="pm">Free Michkov</h2>
+    <p class="muted">The most exciting young player in orange and black, and the bench keeps finding reasons to sit him. If the coach won't give him shifts, the fans will.</p>
+    <div class="clock">
+      <div class="on"><b id="toiGiven">0:00</b><small>Ice time given by fans</small></div>
+      <div class="off"><b id="toiBench">0:00</b><small>Time spent watching from the bench</small></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="shift" type="button">Give him a shift (+0:45)</button>
+      <button class="btn ghost" id="pp" type="button">Put him on the power play (+2:00)</button>
+    </div>
+    <p class="callout" id="mmsg" aria-live="polite">He's on the bench. Again. Do something.</p>
+    <p class="global">Fans have given him <b data-total="toi" data-fmt="time">0:00</b> of ice time so far</p>
+  </section>
+
+  <!-- 3rd period -->
+  <section class="period" aria-labelledby="p3">
+    <span class="eyebrow">3rd Period</span>
+    <h2 id="p3">Build the Replacement</h2>
+    <p class="muted">The front office clearly needs help. Assemble the next bench boss from the finest parts available.</p>
+    <div class="group"><span class="group-lbl">Résumé</span><div class="chips" data-group="cv"></div></div>
+    <div class="group"><span class="group-lbl">Coaching style</span><div class="chips" data-group="style"></div></div>
+    <div class="group"><span class="group-lbl">Bonus features</span><div class="chips" data-group="bonus" data-multi="true"></div></div>
+    <div class="order" aria-live="polite">
+      <span class="eyebrow">Candidate profile</span>
+      <h3 id="candName">Coach Hoagie</h3>
+      <p id="candDesc"></p>
+    </div>
+  </section>
+
+  <!-- OT -->
+  <section class="period" aria-labelledby="p4">
+    <span class="eyebrow">Overtime</span>
+    <h2 id="p4">Sign the Petition</h2>
+    <div class="cta" id="realCta">
+      <p>Fire the Taco: Free Michkov, Bring Back Accountability. It takes 30 seconds.</p>
+      <a class="btn" id="realLink" href="#" target="_blank" rel="noopener" hidden>Sign the petition</a>
+      <span class="soon" id="realSoon">Real petition launching soon</span>
+    </div>
+  </section>
+
+  <!-- Ad: Chel 84-0 -->
+  <aside class="chel-ad" aria-label="Advertisement: Chel 84-0">
+    <div class="ct" aria-hidden="true">
+      <div class="ct-tag"><span class="ct-dot"></span>AD</div>
+      <div class="ct-win"><div class="ct-track"><span class="ct-item"><span class="l">NOW DRAFTING</span><span class="v gold">55 SEASONS</span></span><span class="ct-item"><span class="l">ROSTERS</span><span class="v">REAL NHL</span></span><span class="ct-item"><span class="l">YOUR JOB</span><span class="v">DRAFT SIX</span></span><span class="ct-item"><span class="l">THE SEASON</span><span class="v">84 GAMES</span></span><span class="ct-item"><span class="l">THE DREAM</span><span class="v hot">84-0</span></span><span class="ct-item"><span class="l">THE COACH</span><span class="v gold">YOU</span></span><span class="ct-item" aria-hidden="true"><span class="l">NOW DRAFTING</span><span class="v gold">55 SEASONS</span></span><span class="ct-item" aria-hidden="true"><span class="l">ROSTERS</span><span class="v">REAL NHL</span></span><span class="ct-item" aria-hidden="true"><span class="l">YOUR JOB</span><span class="v">DRAFT SIX</span></span><span class="ct-item" aria-hidden="true"><span class="l">THE SEASON</span><span class="v">84 GAMES</span></span><span class="ct-item" aria-hidden="true"><span class="l">THE DREAM</span><span class="v hot">84-0</span></span><span class="ct-item" aria-hidden="true"><span class="l">THE COACH</span><span class="v gold">YOU</span></span></div></div>
+    </div>
+    <div class="cb">
+      <p class="ce"><span class="chip" aria-hidden="true"></span>[A WORD FROM OUR SPONSOR]</p>
+      <h2>CAN'T FIRE THE COACH?<br>BE THE <span class="r">COACH.</span></h2>
+      <p class="cl">Spin a decade and a franchise, draft your starting six from 55 seasons of real NHL rosters, and simulate 84 games. Your lineup, your calls, your fault. Chase a perfect 84-0.</p>
+      <div class="cbtns"><a class="cbtn" href="https://chel84-0.com" target="_blank" rel="noopener">PLAY CHEL 84-0</a></div>
+      <p class="cfine">CHEL84-0.COM &middot; FREE, NO SIGN-UP &middot; NOT AFFILIATED WITH THE NHL</p>
+    </div>
+  </aside>
+
+  <footer>
+    <span>Fan-made parody for laughs. Not affiliated with, endorsed by, or connected to the Philadelphia Flyers, the NHL, or Rick Tocchet. Hockey opinions only; we're sure he's a nice guy who'd fight us all.</span>
+    <span>This petition goes nowhere. That's the point. It's Philly.</span>
+  </footer>
+</div>
+
+<script>
+/* ===== Shared Philly-wide tallies =====
+   Paste your Supabase Project URL and anon public key below (see SETUP.md).
+   Left blank, the site still works; it just hides the Philly-wide totals. */
+var SUPABASE_URL = "";
+var SUPABASE_ANON_KEY = "";
+
+(function(){
+  var caps={tacos:100,suffer:200,toi:3000,cards:5};
+  var totals={}, pending={}, live=!!(SUPABASE_URL&&SUPABASE_ANON_KEY), base=SUPABASE_URL.replace(/\/+$/,'');
+  function hdr(){return {'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json'}}
+  function fmtTime(s){s=Math.floor(s);if(s>=3600){return Math.floor(s/3600).toLocaleString()+'h '+Math.floor(s%3600/60)+'m'}var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r}
+  function paint(){
+    document.querySelectorAll('[data-total]').forEach(function(el){
+      var k=el.dataset.total, v=(totals[k]||0)+(pending[k]||0);
+      el.textContent=el.dataset.fmt==='time'?fmtTime(v):v.toLocaleString();
+    });
+  }
+  window.bump=function(k,n){if(!live)return;pending[k]=(pending[k]||0)+n;paint()};
+  if(!live)return;
+
+  function load(){
+    return fetch(base+'/rest/v1/counters?select=key,value',{headers:hdr()})
+      .then(function(r){if(!r.ok)throw r;return r.json()})
+      .then(function(rows){rows.forEach(function(row){totals[row.key]=Number(row.value)});document.documentElement.classList.add('live');paint()})
+      .catch(function(){});
+  }
+  var flushing=false;
+  function send(k,n,keepalive){
+    return fetch(base+'/rest/v1/rpc/bump',{method:'POST',headers:hdr(),body:JSON.stringify({k:k,n:n}),keepalive:!!keepalive})
+      .then(function(r){if(!r.ok)throw r;return r.json()})
+      .then(function(v){totals[k]=Number(v)})
+      .catch(function(){pending[k]=(pending[k]||0)+n});
+  }
+  function flush(keepalive){
+    if(flushing&&!keepalive)return;
+    var jobs=[];
+    Object.keys(pending).forEach(function(k){
+      var n=pending[k];if(!n)return;
+      var chunk=Math.min(n,caps[k]||1);pending[k]=n-chunk;
+      jobs.push(send(k,chunk,keepalive));
+    });
+    if(!jobs.length)return;
+    flushing=true;
+    Promise.all(jobs).then(function(){flushing=false;paint()});
+  }
+  load();
+  setInterval(function(){flush(false)},2000);
+  setInterval(load,15000);
+  addEventListener('pagehide',function(){flush(true)});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)flush(true)});
+})();
+</script>
+
+<script>
+(function(){
+  var store={get:function(k,d){try{var v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},
+             set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Taco toss ---- */
+  var count=store.get('fireTacos',0), countEl=document.getElementById('count'), callout=document.getElementById('callout'), rain=document.getElementById('rain');
+  var ms=[[1,"First taco airborne. A season ticket holder nods approvingly."],[10,"Ten tacos. The bench has noticed."],[25,"25 tacos, one for each head coach this franchise has had. Let's make it 26."],[50,"50. Talk radio is taking your call next."],[100,"100 tacos. The front office is drafting a statement."],[250,"250. You are now a recognized local movement."],[500,"500 tacos. Zamboni driver requesting hazard pay."],[1000,"1,000 tacos. A Change.org lawyer has entered the chat."],[1815,"1,815 TACOS. One for every penalty minute. Poetic justice."]];
+  function msgFor(n){var m="Wind up. Philly is watching.";for(var i=0;i<ms.length;i++){if(n>=ms[i][0])m=ms[i][1]}return m}
+  function render(){countEl.textContent=count.toLocaleString();callout.textContent=msgFor(count)}
+  function drop(){
+    if(reduce)return;
+    var n=1+Math.floor(Math.random()*3);
+    for(var i=0;i<n;i++){
+      var t=document.createElement('span');t.className='taco';t.textContent='🌮';
+      t.style.left=(Math.random()*92)+'vw';
+      t.style.animationDuration=(1.4+Math.random()*1.2)+'s';
+      t.style.setProperty('--spin',(Math.random()*720-360)+'deg');
+      t.style.fontSize=(28+Math.random()*28)+'px';
+      rain.appendChild(t);
+      t.addEventListener('animationend',function(){this.remove()});
+    }
+  }
+  document.getElementById('fire').addEventListener('click',function(){count++;store.set('fireTacos',count);render();drop();bump('tacos',1)});
+  render();
+
+  /* ---- Real petition link (paste the Change.org URL here) ---- */
+  var PETITION_URL = "https://c.org/VWFtNbJpSR";
+  if(PETITION_URL){var rl=document.getElementById('realLink');rl.href=PETITION_URL;rl.hidden=false;document.getElementById('realSoon').hidden=true}
+
+  /* ---- Free Michkov ---- */
+  var given=store.get('toiGiven',0), start=Date.now(), benchBase=store.get('toiBench',0);
+  var gEl=document.getElementById('toiGiven'), bEl=document.getElementById('toiBench'), mmsg=document.getElementById('mmsg');
+  function fmt(s){s=Math.floor(s);var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r}
+  var mlines=[[45,"One shift. He touched the puck. The building stood up."],[300,"Five minutes. That's already more than some nights."],[900,"15:00. Top-six minutes. Was that so hard?"],[1200,"20:00. Fans are now a better coaching staff than the coaching staff."],[2400,"40:00. He's tired now. Okay, maybe sit him. Briefly."]];
+  function renderToi(){
+    gEl.textContent=fmt(given);
+    var m="He's on the bench. Again. Do something.";
+    for(var i=0;i<mlines.length;i++){if(given>=mlines[i][0])m=mlines[i][1]}
+    mmsg.textContent=m;
+  }
+  function addToi(s){given+=s;store.set('toiGiven',given);renderToi();bump('toi',s)}
+  document.getElementById('shift').addEventListener('click',function(){addToi(45)});
+  document.getElementById('pp').addEventListener('click',function(){addToi(120)});
+  setInterval(function(){var b=benchBase+(Date.now()-start)/1000;bEl.textContent=fmt(b);store.set('toiBench',Math.floor(b))},1000);
+  bEl.textContent=fmt(benchBase);
+  renderToi();
+
+  /* ---- Build the replacement ---- */
+  var opts={
+    cv:[["hoagie","A sentient Wawa hoagie"],["wip","Any WIP caller, chosen at random"],["goat","A goat from the Philly Zoo"]],
+    style:[["bully","Broad Street Bully revival"],["shoot","Just shoot the puck, guys"],["chaos","Blame the players and media"]],
+    bonus:[["pp","Knows what a power play is"],["fights","Starts at least one fight per game"],["sauce","Comes with long hots"]]
+  };
+  var pick={cv:"hoagie",style:"bully",bonus:["pp","sauce"]};
+  var names={hoagie:"Coach Hoagie",dad:"Coach Big Gary",wip:"Coach Line Four",goat:"Coach Billy (a goat)",ai:"Coach H4NS0N-BOT"};
+  var styleLine={bully:"Will restore the orange-and-black menace of the 70s, mostly through intimidation and mustaches.",vibes:"Has no system. Players report feeling 'really seen.'",shoot:"Entire playbook is one sticky note that says SHOOT.",chaos:"After every loss, it's the players' effort and the media's questions. Wait, this one sounds familiar."};
+  document.querySelectorAll('.chips').forEach(function(box){
+    var g=box.dataset.group, multi=box.dataset.multi==="true";
+    opts[g].forEach(function(o){
+      var c=document.createElement('button');c.type='button';c.className='chip';c.textContent=o[1];c.dataset.v=o[0];
+      c.addEventListener('click',function(){
+        if(multi){var i=pick[g].indexOf(o[0]);if(i>-1)pick[g].splice(i,1);else pick[g].push(o[0])}
+        else pick[g]=o[0];
+        syncChips();renderCand();
+      });
+      box.appendChild(c);
+    });
+  });
+  function syncChips(){
+    document.querySelectorAll('.chips').forEach(function(box){
+      var g=box.dataset.group;
+      box.querySelectorAll('.chip').forEach(function(c){
+        var on=Array.isArray(pick[g])?pick[g].indexOf(c.dataset.v)>-1:pick[g]===c.dataset.v;
+        c.setAttribute('aria-pressed',on?'true':'false');
+      });
+    });
+  }
+  function renderCand(){
+    var b=pick.bonus, score=40+b.length*11+(pick.style==="bully"?10:0)+(pick.cv==="goat"?7:0);
+    score=Math.min(99,score);
+    document.getElementById('candName').textContent=names[pick.cv];
+    var extra=b.length===0?" No bonus features. Somehow still an upgrade, according to the comments section.":" Fan approval rating: "+score+"%.";
+    document.getElementById('candDesc').textContent=styleLine[pick.style]+extra;
+  }
+  syncChips();renderCand();
+
+})();
+</script>
+
+</body>
+</html>
