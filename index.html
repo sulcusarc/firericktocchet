@@ -137,11 +137,13 @@ html:not(.live) .stat:has([data-total]){display:none}
 
 /* Chel 84-0 ad: borrows that site's own look */
 [hidden]{display:none!important}
-.merch{display:flex;gap:18px;align-items:center;flex-wrap:wrap;border:3px solid var(--orange)}
-.merch img{width:140px;height:140px;flex:0 0 auto}
-.merch .mtext{display:flex;flex-direction:column;gap:10px;flex:1 1 220px;min-width:0}
-.merch .mtext h2{font-size:clamp(26px,7vw,36px)}
-.merch a.btn{display:inline-block;text-align:center;text-decoration:none;align-self:flex-start}
+.merch{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:14px;padding:12px 14px;border:2px solid var(--orange);margin-bottom:-16px}
+.merch img{width:76px;height:76px;flex:0 0 auto;object-fit:contain;border-radius:4px}
+.merch .mtext{display:flex;flex-direction:column;gap:2px;flex:1 1 auto;min-width:0}
+.merch .mtext .eyebrow{font-size:11px}
+.merch .mtext h2{font-size:clamp(18px,5vw,22px);line-height:1.05}
+.merch .mtext p{font-size:13px;line-height:1.35}
+.merch a.btn{flex:0 0 auto;padding:10px 12px;font-size:14px;text-decoration:none;text-align:center;white-space:nowrap}
 .chel-ad{background:#0A111A;color:#F3EFE4;border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
 .chel-ad .ct{display:flex;height:40px;background:#0A0D14;border-top:3px solid #F8C507;border-bottom:3px solid #F8C507;overflow:hidden}
 .chel-ad .ct-tag{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:0 14px;background:#C8102E;color:#fff;font:13px/1 "Archivo Black","Arial Black",sans-serif;letter-spacing:2px}
@@ -260,13 +262,13 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);paddin
 
   <!-- Merch -->
   <section class="period merch" id="merch" aria-labelledby="pmerch" hidden>
-    <img src="merch-86.png" width="140" height="140" alt="86 The Taco badge design">
+    <img src="merch-86.png" width="76" height="76" alt="86 The Taco merch">
     <div class="mtext">
       <span class="eyebrow">Merch</span>
       <h2 id="pmerch">Wear the Grievance</h2>
-      <p class="muted">Shirts, stickers and more for fans who are done waiting. Printed to order, shipped to your door.</p>
-      <a class="btn" id="merchLink" href="#" target="_blank" rel="noopener">Shop the merch</a>
+      <p class="muted">Shirts and stickers, printed to order.</p>
     </div>
+    <a class="btn" id="merchLink" href="#" target="_blank" rel="noopener">Shop</a>
   </section>
 
   <!-- Ad: Chel 84-0 -->
