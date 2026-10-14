@@ -136,6 +136,12 @@ html:not(.live) .stat:has([data-total]){display:none}
 .topbar span:last-child{white-space:nowrap}
 
 /* Chel 84-0 ad: borrows that site's own look */
+[hidden]{display:none!important}
+.merch{display:flex;gap:18px;align-items:center;flex-wrap:wrap;border:3px solid var(--orange)}
+.merch img{width:140px;height:140px;flex:0 0 auto}
+.merch .mtext{display:flex;flex-direction:column;gap:10px;flex:1 1 220px;min-width:0}
+.merch .mtext h2{font-size:clamp(26px,7vw,36px)}
+.merch a.btn{display:inline-block;text-align:center;text-decoration:none;align-self:flex-start}
 .chel-ad{background:#0A111A;color:#F3EFE4;border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
 .chel-ad .ct{display:flex;height:40px;background:#0A0D14;border-top:3px solid #F8C507;border-bottom:3px solid #F8C507;overflow:hidden}
 .chel-ad .ct-tag{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:0 14px;background:#C8102E;color:#fff;font:13px/1 "Archivo Black","Arial Black",sans-serif;letter-spacing:2px}
@@ -252,6 +258,17 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);paddin
     </div>
   </section>
 
+  <!-- Merch -->
+  <section class="period merch" id="merch" aria-labelledby="pmerch" hidden>
+    <img src="merch-86.png" width="140" height="140" alt="86 The Taco badge design">
+    <div class="mtext">
+      <span class="eyebrow">Merch</span>
+      <h2 id="pmerch">Wear the Grievance</h2>
+      <p class="muted">Shirts, stickers and more for fans who are done waiting. Printed to order, shipped to your door.</p>
+      <a class="btn" id="merchLink" href="#" target="_blank" rel="noopener">Shop the merch</a>
+    </div>
+  </section>
+
   <!-- Ad: Chel 84-0 -->
   <aside class="chel-ad" aria-label="Advertisement: Chel 84-0">
     <div class="ct" aria-hidden="true">
@@ -357,6 +374,10 @@ var SUPABASE_ANON_KEY = "sb_publishable_5vwi06w5wlf_aoc22T6z2g_iGSMqNso";
   /* ---- Real petition link (paste the Change.org URL here) ---- */
   var PETITION_URL = "https://c.org/VWFtNbJpSR";
   if(PETITION_URL){var rl=document.getElementById('realLink');rl.href=PETITION_URL;rl.hidden=false;document.getElementById('realSoon').hidden=true}
+
+  /* ---- Merch link (paste the Etsy shop URL here) ---- */
+  var MERCH_URL = "";
+  if(MERCH_URL){document.getElementById('merchLink').href=MERCH_URL;document.getElementById('merch').hidden=false}
 
   /* ---- Free Michkov ---- */
   var given=store.get('toiGiven',0), start=Date.now(), benchBase=store.get('toiBench',0);
